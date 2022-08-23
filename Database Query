@@ -1,0 +1,100 @@
+create database StudentManagement
+go 
+use StudentManagement
+go 
+create table Student
+(
+	StudentID int primary key,
+	StudentName nvarchar(30) not null,
+	Email varchar(30) not null,
+	Age int not null
+)
+go
+create table Teacher
+(
+	TeacherID int primary key,
+	TeacherName nvarchar(30) not null,
+	Email varchar(30) not null,
+	Age int not null
+)
+go
+create table Class
+(
+	ClassID int primary key,
+	ClassName varchar(20) not null,
+	StudentID int FOREIGN KEY(StudentID) REFERENCES Student(StudentID),
+	TeacherID int FOREIGN KEY(TeacherID) REFERENCES Teacher(TeacherID)
+)
+go
+create table Subjects
+(
+	SubjectsID int primary key,
+	SubjectsName nvarchar(20) not null,
+	NumberOfSubjects varchar(20) not null,
+	StudentID int FOREIGN KEY(StudentID) REFERENCES Student(StudentID),
+	TeacherID int FOREIGN KEY(TeacherID) REFERENCES Teacher(TeacherID)
+)
+go
+create table Score
+(
+	ScoreID int primary key,
+	ScoreASM1 float not null,
+	ScoreASM2 float not null,
+	MediumScore float not null,
+	StudentID int FOREIGN KEY(StudentID) REFERENCES Student(StudentID),
+	TeacherID int FOREIGN KEY(TeacherID) REFERENCES Teacher(TeacherID),
+	SubjectsID int FOREIGN KEY(SubjectsID) REFERENCES Subjects(SubjectsID)
+)
+go
+
+INSERT INTO Student(StudentID, StudentName, Email, Age) 
+values(1,'Nguyen Duy Hoang','hoangcadz@gmail.com',20),
+	(2,'Ha Cong Minh','minhrac@gmail.com',20)
+go
+select * from Student
+
+INSERT INTO Teacher(TeacherID,TeacherName,Email,Age)
+values(1,'Nguyen Thai Cuong','CuongNT22@fpt.edu.vn',30),
+	(2,'Ngo Thi Mai Loan','LoanNT4332fpt.edu.vn',30)
+go
+select * from Teacher
+
+INSERT INTO Class(ClassID, ClassName, StudentID, TeacherID)
+VALUES(1,'ALS',1,1),
+(2,'ALS',2,2)
+go
+select * from Class
+
+INSERT INTO Subjects(SubjectsID,SubjectsName,NumberOfSubjects,StudentID,TeacherID)
+VALUES(3, 'Maths',1, 2, 2)
+go
+Select * from Subjects
+
+INSERT INTO Score(ScoreID, ScoreASM1,ScoreASM2,MediumScore,StudentID,TeacherID, SubjectsID)
+VALUES(3, 9,9,9,2,2,3)
+go
+
+select * from Score
+
+INSERT INTO users(userid,username,password,role)
+VALUES(1, 'admin','123','admin'),
+(2, 'teacher','123','teacher'),
+(3, 'minh','123','student'),
+(4, 'ha','123','student')
+go
+Select * from users
+
+
+
+
+create table users
+(
+	userid int primary key,
+	username varchar(50) not null,
+	password varchar(20) not null,
+	role varchar(50)
+
+)
+go
+select * from users
+
